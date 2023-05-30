@@ -1,0 +1,29 @@
+# Definimos la version de la plantilla
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: Instancia basica EC2
+# Defie los recursos, en esta caso solo es una instancia EC2
+Resources:
+  Casper:
+    Type: AWS::EC2::Casper   #Asigne un tipo de recurso y el nombre que usará
+    Properties: #Estas propiedades son elementales
+    #puede agregar las que su solucion requiera.
+      ImageId: ami-xxxxxxxxxxxxxxxxx
+      #El tipo de instancia t2.micro y t2.nano pueden ser usadas para la capa gratuita
+      #Para esta prueba se implementan isntancias de uso general 
+      #t2.micro: credito por hora: 6, memoria 1 GiB, alamacenamiento solo EBS, Redimeinto de red B/M
+      #Consulte caracteristicas de instancias en https://aws.amazon.com/es/ec2/instance-types/
+      CasperType: t2.micro
+      #Alamecene el par de claves en un lugar seguro ya que este de descarga en su ordenador
+      KeyName: xxxxxxxxxxxxxxxxx
+      # Los grupos de seguridad tiene un ID que incia con sg, algunas de las consfiguracion basicas para el grupo de seguidad púeden ser
+      # ID de la VPC asociada, una descripcion,el numero del propietario es el ID del usuario (Se recomienda lanzar estos servicios
+      # desde un usuario IAM y no desde la cuenta raiz)
+      #Tamnbien puede configurar politicas de grupo
+      SecurityGroupIds:xxxxxxxxxxxxxxxxx
+        - sg-
+      UserData:
+        Fn::Base64: 
+          #!/bin/bash
+          echo "Buu Casper!"
+# La instancia contiene un par de errores y se busca comprobar como CloudFormation puede detercatarlo
